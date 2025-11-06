@@ -1,12 +1,27 @@
 import pdf_generator
 from math_problem_generator import generate_problems
+from mem0_accessor import get_from_memory
 
 def main():
     print("This is the main word application.")
 
     try:
-        print("Generating math problems...")
-        problems = generate_problems(topics=["addition", "subtraction", "multiplication", "division", "fractions", "basic geometry"], num_counts=10)
+        performance_context = get_from_memory()
+
+        memory_instruction = f"""
+            **IMPORTANT**: I will provide a summary of the student's recent performance.
+            You MUST use this information to **customize** the new problems. 
+            Focus on the topics where the student struggled, and reduce problems on topics
+            they performed well.
+
+            {performance_context}
+        """
+    
+        problems = generate_problems(
+            topics=["addition", "subtraction", "multiplication", "division", "fractions", "basic geometry"], 
+            memory_instruction=memory_instruction,
+            num_counts=10,
+        )
 
         if not problems:
             print("No problems were generated.")

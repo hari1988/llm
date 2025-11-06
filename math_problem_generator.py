@@ -1,11 +1,13 @@
 import ollama
 
-def generate_problems(topics: list[str], num_counts = 5):
+def generate_problems(topics: list[str], memory_instruction: str, num_counts = 5):
     prompt = f"""
     You are a helpful math tutor. Generate {num_counts} unique, separate math problems suitable for a 3rd grader.
     The problems should cover topics in {topics} list.
     Make sure the problems vary in difficulty.
     DO NOT provide the answers or solutions. Also, do not include the topic alongside each problem.
+
+    {memory_instruction}
 
     Strictly present only the problems as a numbered list, one problem per line. DO NOT include any introductory or concluding remarks, just the list.
     """
